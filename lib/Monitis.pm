@@ -11,7 +11,7 @@ use HTTP::Request::Common;
 use Digest::SHA 'hmac_sha1_base64';
 use JSON;
 
-our $VERSION = '0.9';
+our $VERSION = '0.91';
 
 use constant DEBUG => $ENV{MONITIS_DEBUG} || 0;
 
@@ -178,7 +178,7 @@ sub build_post_request {
         Carp::croak("API key and Secret key required for this action");
     }
 
-    my ($sec, $min, $hour, $mday, $mon, $year, $wday) = localtime(time);
+    my ($sec, $min, $hour, $mday, $mon, $year, $wday) = gmtime(time);
     my $timestamp = sprintf "%4d-%02d-%02d %02d:%02d:%02d",
       $year + 1900, $mon + 1, $mday, $hour, $min, $sec;
 
