@@ -20,6 +20,8 @@ require Carp;
 our $TOKEN_TTL = $ENV{MONITIS_TOKEN_TTL} || 60 * 60 * 24;    # 24 hours
 my $API_VERSION = 2;
 
+our $api_host = 'www.monitis.com';
+
 our $MAPPING = {
     sub_accounts            => 'SubAccounts',
     layout                  => 'Layout',
@@ -51,6 +53,7 @@ sub new {
     $self->{ua} ||= LWP::UserAgent->new(agent => "perl-monitis-api/$VERSION");
 
     $self->{json} ||= JSON->new;
+		$Monitis::api_host = $self->{api_host} if exists $self->{api_host};
 
     bless $self, $class;
 }
@@ -226,10 +229,10 @@ sub api_url {
     my $typeof = ref($self) ? $self->{_typeof} || '' : '';
     my $class  = ref($self) || $self;
 
-    return 'http://monitis.com/api' unless $typeof;
-    return 'http://monitis.com/api' if $class eq $typeof;
+    return "http://${Monitis::api_host}/api" unless $typeof;
+    return "http://${Monitis::api_host}/api" if $class eq $typeof;
 
-    return 'http://monitis.com/api' unless $typeof->can('api_url');
+    return "http://${Monitis::api_host}/api" unless $typeof->can('api_url');
 
     # Mapped class has own API url
     return $typeof->api_url;
@@ -344,6 +347,7 @@ sub secret_key {
     $self;
 }
 
+
 sub prepare_params {
     my ($self, $params, $mandatory, $optional) = @_;
 
@@ -442,6 +446,10 @@ This library provides interface to Monitis.com API
 
 L<Monitis> implements following attributes:
 
+=head2 api_host
+
+Monitis API host. The default is www.monitis.com, but could be set to www.monitor.us for instance, 
+or sandbox.monitis.com in order test your scripts.
 
 =head2 api_url
 
