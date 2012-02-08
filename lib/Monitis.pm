@@ -408,7 +408,7 @@ This document describes Monitis version 0.8_3
     use Monitis;
 
     my $api =
-      Monitis->new(sekret_key => $SECRET_KEY, api_key => $API_KEY);
+      Monitis->new(secret_key => $SECRET_KEY, api_key => $API_KEY);
 
     # Create subaccount, see Monitis::SubAccounts
     my $response = $api->sub_accounts->add(
@@ -496,7 +496,7 @@ L<Monitis> implements following methods:
 
 =head2 new
 
-    my $monitis = Monitis->new(sekret_key => '***', api_key => '***');
+    my $monitis = Monitis->new(secret_key => '***', api_key => '***');
 
 Construct a new L<Monitis> instance.
 
