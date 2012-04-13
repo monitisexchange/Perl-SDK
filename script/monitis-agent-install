@@ -36,6 +36,7 @@ GetOptions(
     "base|b=s"            => \$opts{base},
     "name=s"              => \$opts{name},
     "config=s"            => \$opts{config},
+    "add-monitors|monitors=s" => \$opts{monitors},
     "help|h"              => \$opts{help}
 );
 
@@ -144,6 +145,7 @@ sub fill_config {
     $opts->{executable} = catfile($opts->{'home'}, 'bin',  'monitis');
     $opts->{conf}       = catfile($opts->{'home'}, 'etc',  'monitis.conf');
     $opts->{host} ||= 'google.com';
+    $opts{monitors} ||='yes';
 }
 
 sub download_agent {
@@ -306,8 +308,9 @@ sub setup_monitors {
         }
     }
 
+    if ($opts{monitors} eq 'yes'){
     print "Add default monitors:\n";
-
+   
     print "CPU monitor... ";
     my $status = $api->cpu->add(
         agentkey  => $opts{name},
@@ -396,7 +399,7 @@ sub setup_monitors {
     );
     print $status->{status} . "\n";
 }
-
+}
 sub cleanup {
     my $file = shift;
     return unless $file && -f $file;
@@ -469,6 +472,7 @@ monitis-agent-install [OPTIONS]
     --email             Your account name (email)
     --base              Base path where Monitis API agent should be installed
     --name              Agent name
+    --add-monitors	    Setup default monitors (by default yes)
     --help              Display this message
     --config            Path to installation config file
 
