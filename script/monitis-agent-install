@@ -309,96 +309,96 @@ sub setup_monitors {
     }
 
     if ($opts{monitors} eq 'yes'){
-    print "Add default monitors:\n";
-   
-    print "CPU monitor... ";
-    my $status = $api->cpu->add(
-        agentkey  => $opts{name},
-        idleMin   => 0,
-        ioWaitMax => 100,
-        kernelMax => 100,
-        usedMax   => 100,
-        name      => $opts{name} . "_CPU_monitor",
-        tag       => $tag
-    );
-    print $status->{status} . "\n";
-
-    print "Memory monitor... ";
-    $status = $api->memory->add(
-        agentkey      => $opts{name},
-        platform      => 'LINUX',
-        freeLimit     => 2000,
-        freeSwapLimit => 1000,
-        bufferedLimit => 1000,
-        cachedLimit   => 1000,
-        name          => $opts{name} . "_Memory_monitor",
-        tag           => $tag,
-    );
-    print $status->{status} . "\n";
-
-    print "Drive monitor... ";
-    $status = $api->drive->add(
-        agentkey    => $opts{name},
-        driveLetter => 'C',                              #Generic
-        freeLimit   => 10,
-        name        => $opts{name} . "_Drive_monitor",
-        tag         => $tag,
-    );
-    print $status->{status} . "\n";
-
-    print "Process monitor... ";
-    $status = $api->process->add(
-        agentkey           => $opts{name},
-        processName        => 'monitis',
-        cpuLimit           => 15,
-        memoryLimit        => 200,
-        virtualMemoryLimit => 200,
-        name               => $opts{name} . "_Memory_monitor",
-        tag                => $tag,
-    );
-    print $status->{status} . "\n";
-
-    print "Load Average monitor... ";
-    $status = $api->load_average->add(
-        agentkey => $opts{name},
-        limit1   => 90,
-        limit5   => 80,
-        limit15  => 70,
-        name     => $opts{name} . "_Load_Average_monitor",
-        tag      => $tag,
-    );
-    print $status->{status} . "\n";
-
-    print "HTTP monitor... ";
-    $status = $api->http->add(
-        userAgentId        => $agent_id,
-        contentMatchFlag   => 1,
-        contentMatchString => 'Monitis',
-        httpMethod         => 0,
-        postData           => 'q=monitis',
-        userAuth           => '',
-        passAuth           => '',
-        timeout            => 3000,
-        redirect           => 1,
-        url                => $opts{host},
-        name               => $opts{name} . "_HTTP_monitor",
-        tag                => $tag,
-    );
-    print $status->{status} . "\n";
-
-    print "Ping monitor... ";
-    my $response = $api->ping->add(
-        userAgentId  => $agent_id,
-        maxLost      => 2,
-        packetsCount => 5,
-        packetsSize  => 32,
-        timeout      => 20000,
-        url          => $opts{host},
-        name         => $opts{name} . "_Ping_monitor",
-        tag          => $tag,
-    );
-    print $status->{status} . "\n";
-}
+        print "Add default monitors:\n";
+       
+        print "CPU monitor... ";
+        my $status = $api->cpu->add(
+            agentkey  => $opts{name},
+            idleMin   => 0,
+            ioWaitMax => 100,
+            kernelMax => 100,
+            usedMax   => 100,
+            name      => $opts{name} . "_CPU_monitor",
+            tag       => $tag
+        );
+        print $status->{status} . "\n";
+    
+        print "Memory monitor... ";
+        $status = $api->memory->add(
+            agentkey      => $opts{name},
+            platform      => 'LINUX',
+            freeLimit     => 2000,
+            freeSwapLimit => 1000,
+            bufferedLimit => 1000,
+            cachedLimit   => 1000,
+            name          => $opts{name} . "_Memory_monitor",
+            tag           => $tag,
+        );
+        print $status->{status} . "\n";
+    
+        print "Drive monitor... ";
+        $status = $api->drive->add(
+            agentkey    => $opts{name},
+            driveLetter => 'C',                              #Generic
+            freeLimit   => 10,
+            name        => $opts{name} . "_Drive_monitor",
+            tag         => $tag,
+        );
+        print $status->{status} . "\n";
+    
+        print "Process monitor... ";
+        $status = $api->process->add(
+            agentkey           => $opts{name},
+            processName        => 'monitis',
+            cpuLimit           => 15,
+            memoryLimit        => 200,
+            virtualMemoryLimit => 200,
+            name               => $opts{name} . "_Memory_monitor",
+            tag                => $tag,
+        );
+        print $status->{status} . "\n";
+    
+        print "Load Average monitor... ";
+        $status = $api->load_average->add(
+            agentkey => $opts{name},
+            limit1   => 90,
+            limit5   => 80,
+            limit15  => 70,
+            name     => $opts{name} . "_Load_Average_monitor",
+            tag      => $tag,
+        );
+        print $status->{status} . "\n";
+    
+        print "HTTP monitor... ";
+        $status = $api->http->add(
+            userAgentId        => $agent_id,
+            contentMatchFlag   => 1,
+            contentMatchString => 'Monitis',
+            httpMethod         => 0,
+            postData           => 'q=monitis',
+            userAuth           => '',
+            passAuth           => '',
+            timeout            => 3000,
+            redirect           => 1,
+            url                => $opts{host},
+            name               => $opts{name} . "_HTTP_monitor",
+            tag                => $tag,
+        );
+        print $status->{status} . "\n";
+    
+        print "Ping monitor... ";
+        my $response = $api->ping->add(
+            userAgentId  => $agent_id,
+            maxLost      => 2,
+            packetsCount => 5,
+            packetsSize  => 32,
+            timeout      => 20000,
+            url          => $opts{host},
+            name         => $opts{name} . "_Ping_monitor",
+            tag          => $tag,
+        );
+        print $status->{status} . "\n";
+    }
 }
 sub cleanup {
     my $file = shift;
