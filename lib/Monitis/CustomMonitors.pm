@@ -12,7 +12,7 @@ sub add {
     my ($self, @params) = @_;
 
     my @mandatory = qw/name tag resultParams/;
-    my @optional  = qw/monitorParams/;
+    my @optional  = qw/type monitorParams/;
 
     my $params = $self->prepare_params(\@params, \@mandatory, \@optional);
 
