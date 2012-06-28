@@ -1,5 +1,11 @@
 Revision history for Monitis
 
+0.93    Thu Jun 28 16:30:00 2012
+        CustomMonitors: added support for additional params
+
+0.92    Mon Apr 30 19:24:51 2012
+        CustomMonitors: added support for monitor type
+
 0.91    Wed Jul 13 11:59:54 2011
         improved live tests
 

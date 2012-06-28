@@ -12,7 +12,7 @@ sub add {
     my ($self, @params) = @_;
 
     my @mandatory = qw/name tag resultParams/;
-    my @optional  = qw/type monitorParams/;
+    my @optional  = qw/type monitorParams additionalResultParams/;
 
     my $params = $self->prepare_params(\@params, \@mandatory, \@optional);
 
@@ -61,6 +61,17 @@ sub add_results {
     my $params = $self->prepare_params(\@params, \@mandatory, \@optional);
 
     return $self->api_post('addResult' => $params);
+}
+
+sub add_additional_results {
+    my ($self, @params) = @_;
+
+    my @mandatory = qw/monitorId checktime results/;
+    my @optional  = ();
+
+    my $params = $self->prepare_params(\@params, \@mandatory, \@optional);
+
+    return $self->api_post('addAdditionalResults' => $params);
 }
 
 sub get_results {
